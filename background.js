@@ -117,6 +117,17 @@ async function handleMessage(message) {
       return { success: true, settings: current };
     }
 
+    case "REMOVE_ALLOWED_DOMAIN": {
+      const domain = normalizeDomain(payload.domain);
+      const { settings } = await chrome.storage.local.get("settings");
+      const current = settings || DEFAULT_SETTINGS;
+
+      current.customAllowed = current.customAllowed.filter(d => d !== domain);
+      await chrome.storage.local.set({ settings: current });
+      await applyDynamicRules();
+      return { success: true, settings: current };
+    }
+
     case "SET_PASSWORD": {
       const { settings } = await chrome.storage.local.get("settings");
       const current = settings || DEFAULT_SETTINGS;
