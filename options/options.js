@@ -16,7 +16,7 @@ async function loadSettings() {
 function updateUI() {
   document.getElementById("toggle-safesearch").checked = currentSettings.forceSafeSearch;
   renderList("custom-domains-list", currentSettings.customBlocked || [], "REMOVE_CUSTOM_DOMAIN");
-  renderList("allowed-domains-list", currentSettings.customAllowed || [], "ALLOW_DOMAIN_REMOVE");
+  renderList("allowed-domains-list", currentSettings.customAllowed || [], "REMOVE_ALLOWED_DOMAIN");
 }
 
 function renderList(elementId, domains, removeType) {
@@ -41,30 +41,13 @@ function renderList(elementId, domains, removeType) {
   list.querySelectorAll(".btn-small").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const domain = btn.dataset.domain;
-
-      if (removeType === "REMOVE_CUSTOM_DOMAIN") {
-        const res = await chrome.runtime.sendMessage({
-          type: "REMOVE_CUSTOM_DOMAIN",
-          payload: { domain }
-        });
-        if (res.success) {
-          currentSettings = res.settings;
-          updateUI();
-        }
-      } else {
-        // Remover da lista de permitidos
-        const { settings } = await chrome.storage.local.get("settings");
-        settings.customAllowed = settings.customAllowed.filter((d) => d !== domain);
-        await chrome.storage.local.set({ settings });
-        currentSettings = settings;
-        // Reaplica regras
-        await chrome.runtime.sendMessage({ type: "GET_SETTINGS" }); // força refresh
-        // Chama apply via SET_ENABLED trick ou mensagem específica
-        await chrome.runtime.sendMessage({
-          type: "SET_ENABLED",
-          payload: { enabled: currentSettings.enabled }
-        });
-        await loadSettings();
+      const res = await chrome.runtime.sendMessage({
+        type: removeType,
+        payload: { domain }
+      });
+      if (res.success) {
+        currentSettings = res.settings;
+        updateUI();
       }
     });
   });
