@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net Filter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <span class="icon">🛡️</span>
+        <h1>Net Filter</h1>
+      </div>
+      <p class="subtitle">Bloqueio de conteúdo adulto</p>
+    </header>
+
+    <div class="status-card">
+      <div class="status-row">
+        <span id="status-text">Carregando...</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle-enabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div id="password-section" class="hidden">
+      <input type="password" id="password-input" placeholder="Digite a senha para desativar">
+      <button id="confirm-disable" class="btn btn-danger">Confirmar</button>
+    </div>
+
+    <div class="section">
+      <h2>Adicionar site</h2>
+      <div class="input-group">
+        <input type="text" id="domain-input" placeholder="ex: exemplo.com">
+        <button id="add-domain" class="btn btn-primary">Bloquear</button>
+      </div>
+      <p id="domain-feedback" class="feedback"></p>
+    </div>
+
+    <div class="section">
+      <h2>Sites bloqueados por você</h2>
+      <ul id="custom-list" class="domain-list">
+        <li class="empty">Nenhum site personalizado</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <a href="#" id="open-options">Configurações</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

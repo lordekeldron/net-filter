@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net Filter — Configurações</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>🛡️ Net Filter</h1>
+      <p>Configurações do filtro de conteúdo adulto</p>
+    </header>
+
+    <section class="card">
+      <h2>Proteção com senha</h2>
+      <p class="desc">Defina uma senha para dificultar a desativação impulsiva do filtro.</p>
+
+      <div id="password-form">
+        <div class="field">
+          <label for="current-password">Senha atual (se já existir)</label>
+          <input type="password" id="current-password" placeholder="Deixe em branco se não houver">
+        </div>
+        <div class="field">
+          <label for="new-password">Nova senha</label>
+          <input type="password" id="new-password" placeholder="Mínimo 4 caracteres">
+        </div>
+        <div class="field">
+          <label for="confirm-password">Confirmar nova senha</label>
+          <input type="password" id="confirm-password" placeholder="Repita a senha">
+        </div>
+        <button id="save-password" class="btn btn-primary">Salvar senha</button>
+        <button id="remove-password" class="btn btn-outline">Remover senha</button>
+        <p id="password-feedback" class="feedback"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>SafeSearch</h2>
+      <p class="desc">Força o modo SafeSearch no Google, Bing, DuckDuckGo e Yahoo.</p>
+      <label class="switch-row">
+        <span>Ativar SafeSearch forçado</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle-safesearch">
+          <span class="slider"></span>
+        </label>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Lista personalizada de bloqueio</h2>
+      <p class="desc">Sites que você adicionou manualmente.</p>
+      <div class="input-group">
+        <input type="text" id="add-domain-input" placeholder="exemplo.com">
+        <button id="add-domain-btn" class="btn btn-primary">Adicionar</button>
+      </div>
+      <ul id="custom-domains-list" class="domain-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Sites permitidos (exceções)</h2>
+      <p class="desc">Sites que nunca serão bloqueados, mesmo se estiverem na lista principal.</p>
+      <div class="input-group">
+        <input type="text" id="allow-domain-input" placeholder="exemplo.com">
+        <button id="allow-domain-btn" class="btn btn-primary">Permitir</button>
+      </div>
+      <ul id="allowed-domains-list" class="domain-list"></ul>
+    </section>
+
+    <footer>
+      <p>Net Filter v1.0.0 — Filtro local e privado. Nenhum dado é enviado para servidores.</p>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

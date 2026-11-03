@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site bloqueado — Net Filter</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f1419;
+      color: #e7e9ea;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #1a2332;
+      border: 1px solid #2f3336;
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #f4212e;
+    }
+    p {
+      color: #8b98a5;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .domain {
+      background: #0f1419;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: monospace;
+      font-size: 14px;
+      color: #1d9bf0;
+      margin-bottom: 28px;
+      word-break: break-all;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    a, button {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: #1d9bf0;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1a8cd8;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #8b98a5;
+      border: 1px solid #2f3336;
+    }
+    .btn-outline:hover {
+      border-color: #1d9bf0;
+      color: #1d9bf0;
+    }
+    .footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: #536471;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">🛡️</div>
+    <h1>Site bloqueado</h1>
+    <p>Este site foi bloqueado pelo <strong>Net Filter</strong> por conter ou estar associado a conteúdo adulto.</p>
+    <div class="domain" id="blocked-domain">—</div>
+    <div class="actions">
+      <a href="https://www.google.com" class="btn-primary">Ir para o Google</a>
+      <button class="btn-outline" onclick="history.back()">Voltar</button>
+    </div>
+    <p class="footer">Net Filter — Proteção local e privada</p>
+  </div>
+
+  <script>
+    // Tenta extrair o domínio da URL de referência ou da query
+    const params = new URLSearchParams(window.location.search);
+    const domain = params.get("domain") || document.referrer || "site solicitado";
+    document.getElementById("blocked-domain").textContent = domain.replace(/^https?:\/\//, "").split("/")[0] || domain;
+  </script>
+</body>
+</html>
